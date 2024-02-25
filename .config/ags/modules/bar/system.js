@@ -42,9 +42,9 @@ const BarClock = () => Widget.Box({
     children: [
         Widget.Label({
             className: 'bar-clock',
-            label: GLib.DateTime.new_now_local().format("%H:%M"),
-            setup: (self) => self.poll(5000, label => {
-                label.label = GLib.DateTime.new_now_local().format("%H:%M");
+            label: GLib.DateTime.new_now_local().format("%I:%M:%S"),
+            setup: (self) => self.poll(1000, label => {
+                label.label = GLib.DateTime.new_now_local().format("%I:%M:%S");
             }),
         }),
         Widget.Label({
@@ -53,9 +53,9 @@ const BarClock = () => Widget.Box({
         }),
         Widget.Label({
             className: 'txt-smallie',
-            label: GLib.DateTime.new_now_local().format("%A, %d/%m"),
-            setup: (self) => self.poll(5000, label => {
-                label.label = GLib.DateTime.new_now_local().format("%A, %d/%m");
+            label: GLib.DateTime.new_now_local().format("%A, %m-%d"),
+            setup: (self) => self.poll(1000, label => {
+                label.label = GLib.DateTime.new_now_local().format("%A, %m-%d");
             }),
         }),
     ],
@@ -169,11 +169,11 @@ const BatteryModule = () => Stack({
                                 .catch(print);
                             const weatherCode = weather.current_condition[0].weatherCode;
                             const weatherDesc = weather.current_condition[0].weatherDesc[0].value;
-                            const temperature = weather.current_condition[0].temp_C;
-                            const feelsLike = weather.current_condition[0].FeelsLikeC;
+                            const temperature = weather.current_condition[0].temp_F;
+                            const feelsLike = weather.current_condition[0].FeelsLikeF;
                             const weatherSymbol = WEATHER_SYMBOL[WWO_CODE[weatherCode]];
                             self.children[0].label = weatherSymbol;
-                            self.children[1].label = `${temperature}℃ • Feels like ${feelsLike}℃`;
+                            self.children[1].label = `${temperature}℉ • Feels like ${feelsLike}℉`;
                             self.tooltipText = weatherDesc;
                         }).catch((err) => {
                             try { // Read from cache
@@ -182,11 +182,11 @@ const BatteryModule = () => Stack({
                                 );
                                 const weatherCode = weather.current_condition[0].weatherCode;
                                 const weatherDesc = weather.current_condition[0].weatherDesc[0].value;
-                                const temperature = weather.current_condition[0].temp_C;
-                                const feelsLike = weather.current_condition[0].FeelsLikeC;
+                                const temperature = weather.current_condition[0].temp_F;
+                                const feelsLike = weather.current_condition[0].FeelsLikeF;
                                 const weatherSymbol = WEATHER_SYMBOL[WWO_CODE[weatherCode]];
                                 self.children[0].label = weatherSymbol;
-                                self.children[1].label = `${temperature}℃ • Feels like ${feelsLike}℃`;
+                                self.children[1].label = `${temperature}℉ • Feels like ${feelsLike}℉`;
                                 self.tooltipText = weatherDesc;
                             } catch (err) {
                                 print(err);
